@@ -1,0 +1,24 @@
+{
+  "name": "upgraded-chainsaw",
+  "version": "0.0.1",
+  "description": "REST API with mongo",
+  "main": "bin/server.js",
+  "repository": "",
+  "author": "Vitaly Kuznetsov <vetalitty@gmail.com>",
+  "license": "",
+  "scripts": {
+    "start": "node bin/server.js"
+  },
+  "dependencies": {
+    "http-shutdown": "^1.2.0",
+    "kcors": "^2.2.2",
+    "koa": "^2.5.2",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "lodash": "^4.17.10",
+    "mongoose": "^5.4.5",
+    "mongoose-seed": "^0.5.1",
+    "uuid": "^3.3.2"
+  }
+}
