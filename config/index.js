@@ -33,7 +33,7 @@ function getConfig() {
 function getProductionConfig() {
   return {
     server: {
-      port: _.defaultTo(process.env.PORT, 3333),
+      port: _.defaultTo(process.env.PORT, 3001),
       host: _.defaultTo(process.env.HOST, 'localhost'),
       root: ROOT,
     },
@@ -62,7 +62,7 @@ function getProductionConfig() {
 function getDevelopmentConfig() {
   return {
     server: {
-      port: _.defaultTo(process.env.PORT, 3333),
+      port: _.defaultTo(process.env.PORT, 3001),
       host: _.defaultTo(process.env.HOST, 'localhost'),
       root: ROOT,
     },

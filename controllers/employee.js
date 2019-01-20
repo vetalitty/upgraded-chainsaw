@@ -4,11 +4,19 @@ const db = require('../database');
 module.exports = {
   async get(ctx) {
     const id = ctx.params.id;
-
-    ctx.body = { message: 'success' };
+    let employee = {};
+    try {
+      employee = await db.employee.get(id);
+    } catch (e) {
+    }
+    ctx.body = { message: 'success', employee };
   },
   async getAll(ctx) {
-
-    ctx.body = { user: _.omit(user, ['password']), message: 'success' };
+    let employees = [];
+    try {
+      employees = await db.employee.getAll();
+    } catch (e) {
+    }
+    ctx.body = { message: 'success', employees };
   },
 };

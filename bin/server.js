@@ -1,5 +1,7 @@
 const { server: { port } } = require('../config');
 const serverApp = require('../app');
+const connection = require('../database/connection');
+const seed = require('../database/seed');
 
 /**
  * Error handling for system calls
@@ -35,13 +37,28 @@ function onError(error) {
  * On listening event
  * */
 function onListening() {
-  console.log(`Server has been started on port ${port}`);
 }
 
 async function start(app) {
   app.server.listen(port);
+  await connection();
+  await seed();
   app.server.on('error', onError);
   app.server.on('listening', onListening);
 }
+
+process.on('SIGTERM', async() => {
+  const conn = await connection();
+  await conn.connection.close();
+  console.info('Graceful shutdown');
+  process.exit(0);
+});
+
+process.on('SIGINT', async() => {
+  const conn = await connection();
+  await conn.connection.close();
+  console.info('Graceful shutdown');
+  process.exit(0);
+});
 
 start(serverApp);

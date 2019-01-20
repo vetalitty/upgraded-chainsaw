@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const { db: { url } } = require('../config');
 
-mongoose.connect(url);
-mongoose.Promise = global.Promise;
-const db = mongoose.connection;
-db.on('error', (err) => console.error('MongoDB connection error'));
+let connection;
+async function getConnection() {
+  if (connection) return connection;
+  connection = await mongoose.connect(url, { useNewUrlParser: true });
+}
 
-module.exports = db;
+module.exports = getConnection;

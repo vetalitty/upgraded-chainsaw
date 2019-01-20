@@ -14,19 +14,7 @@ const app = new Koa();
 app.use(logger());
 app.use(errorMiddleware);
 
-const config = {
-  cors: {
-    origin: '*',
-    exposeHeaders: ['Authorization'],
-    credentials: true,
-    allowMethods: ['GET', 'PUT', 'POST', 'DELETE'],
-    allowHeaders: ['Authorization', 'Content-Type'],
-    keepHeadersOnError: true,
-  },
-  bodyParser: {
-    enableTypes: ['json', 'form'],
-  },
-};
+const config = require('./config');
 app.use(cors(config.cors));
 app.use(bodyParser(config.bodyParser));
 

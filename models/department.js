@@ -1,23 +1,25 @@
 const mongoose = require('mongoose');
 
-const departmentSchema = new mongoose.Schema({
+const departmentSchema = mongoose.Schema({
   financialCode: {
-    type: Number,
-    maxlength: 20,
+    type: String,
     minlength: 20,
+    maxlength: 20,
     required: [true, "financialCodeRequired"],
   },
   shortName: {
-    maxlength: 1,
-    minlength: 20,
-    type: Number,
+    minlength: 1,
+    maxlength: 20,
+    type: String,
     required: [true, "shortNameRequired"]
   },
   fullName: {
-    maxlength: 1,
-    minlength: 50,
-    type: Number,
-    required: [true, "shortNameRequired"]
+    minlength: 1,
+    maxlength: 50,
+    type: String,
+    required: [true, "fullNameRequired"]
   },
+},{
+  versionKey: false
 });
 module.exports = mongoose.model('Department', departmentSchema);

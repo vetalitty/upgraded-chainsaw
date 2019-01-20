@@ -1,70 +1,36 @@
-const seeder = require('mongoose-seed');
-const { db: { url } } = require('../config');
+const Employee = require('../models/employee');
+const Department = require('../models/department');
+const Organization = require('../models/organization');
 
-seeder.connect(url, () => {
-  seeder.loadModels([
-    'models/department',
-    'models/employee',
-    'models/organization',
-  ]);
+async function createData() {
+  await Department.deleteMany();
+  await Employee.deleteMany();
+  await Organization.deleteMany();
 
-  seeder.clearModels(['Department', 'Employee', 'Organization'], () => {
-    seeder.populateModels(data, () => {
-      seeder.disconnect();
-    });
-  });
-});
+  const department = await Department.create(
+    {
+      financialCode: '12345678901234567890',
+      shortName: 'small department',
+      fullName: 'full department',
+    }
+  );
+  const organization = await Organization.create(
+    {
+      INN: 123456789012,
+      shortName: 'small organization',
+      fullName: 'full organization',
+    }
+  );
+  await Employee.create(
+    {
+      firstName: 'Ivan',
+      lastName: 'Ivanov',
+      patronymic: 'Ivanovich',
+      personalNumber: 124,
+      departmentId: department,
+      organizationId: organization,
+    }
+  );
+}
 
-const data = [
-  {
-    'model': 'Department',
-    'documents': [
-      {
-        'name': 'financialCode',
-        'value': 12345678901234567890
-      },
-      {
-        'name': 'shortName',
-        'value': 'short name'
-      },
-      {
-        'name': 'fullName',
-        'value': 'full name'
-      },
-    ]
-  },
-  {
-    'model': 'Organization',
-    'documents': [
-      {
-        'name': 'INN',
-        'value': 123456789012
-      },
-      {
-        'name': 'shortName',
-        'value': 'short name'
-      },
-      {
-        'name': 'fullName',
-        'value': 'full name'
-      },
-    ]
-  },
-  {
-    'model': 'Employee',
-    'documents': [
-      {
-        'name': 'INN',
-        'value': 123456789012
-      },
-      {
-        'name': 'shortName',
-        'value': 'short name'
-      },
-      {
-        'name': 'fullName',
-        'value': 'full name'
-      },
-    ]
-  },
-];
+module.exports = createData;

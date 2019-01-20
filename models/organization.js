@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const organizationSchema = new mongoose.Schema({
+const organizationSchema = mongoose.Schema({
   INN: {
     type: Number,
     maxlength: 12,
@@ -8,16 +8,18 @@ const organizationSchema = new mongoose.Schema({
     required: [true, "innRequired"],
   },
   shortName: {
-    maxlength: 1,
-    minlength: 20,
-    type: Number,
+    minlength: 1,
+    maxlength: 20,
+    type: String,
     required: [true, "shortNameRequired"]
   },
   fullName: {
-    maxlength: 1,
-    minlength: 50,
-    type: Number,
+    minlength: 1,
+    maxlength: 50,
+    type: String,
     required: [true, "shortNameRequired"]
   },
+},{
+  versionKey: false
 });
-module.exports = mongoose.model('Department', organizationSchema);
+module.exports = mongoose.model('Organization', organizationSchema);

@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const organizationSchema = require('./organization');
-const departmentSchema = require('./department');
+const Organization = require('./organization');
+const Department = require('./department');
 
-const employeeSchema = new mongoose.Schema({
+const employeeSchema = mongoose.Schema({
   firstName: {
     type: String,
     required: [true, "firstNameRequired"],
@@ -19,8 +19,16 @@ const employeeSchema = new mongoose.Schema({
     type: Number,
     required: [true, "personalNumberRequired"]
   },
-  organizationId: organizationSchema,
-  departmentId: departmentSchema
+  organizationId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Organization'
+  },
+  departmentId:  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Department'
+  }
+},{
+  versionKey: false
 });
 employeeSchema.index({ "organizationId": 1, "departmentId": 1 }, { "unique": true });
 module.exports = mongoose.model('Employee', employeeSchema);
